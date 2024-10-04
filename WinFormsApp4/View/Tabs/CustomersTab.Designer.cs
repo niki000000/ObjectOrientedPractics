@@ -48,6 +48,7 @@
             splitContainerCustomers.SuspendLayout();
             groupBoxCustomers.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
             groupBoxSelectedCustomer.SuspendLayout();
             SuspendLayout();
             // 
