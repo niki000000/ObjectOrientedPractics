@@ -18,19 +18,53 @@ class Customer
     /// <summary>
     /// Адрес покупателя.
     /// </summary>
-    private string _address;
+    private Address _address = new Address();
 
     /// <summary>
     ///Создание объекта класса ValueValidator.
     /// </summary>
     private ValueValidator _validator = new ValueValidator();
 
-    /// <summary>
-    /// Присваивает полю _id индивидуальный идентификатор.
-    /// </summary>
-    public Customer()
+    public int Id
     {
-        _id = IdGenerator.GetNextId();
+        get
+        {
+            return _id;
+        }
+    }
+    public string FullName
+    {
+        get
+        {
+            return _fullname;
+        }
+        set
+        {
+            _validator.AssertStringOnLength(value, 200, nameof(_fullname));
+            _fullname = value;
+        }
+    }
+    public string Display
+    {
+        get
+        {
+            return $"ID: {_id}, Name: {_fullname}";
+        }
+    }
+
+
+    public Address Address
+    {
+        get
+        {
+            return _address;
+        }
+        set
+        {
+
+            _address = value ?? new Address();
+
+        }
     }
 
     /// <summary>
@@ -39,15 +73,13 @@ class Customer
     /// </summary>
     /// <param name="fullname">Полное имя покупателя.</param>
     /// <param name="address">Адрес покупателя.</param>
-    public Customer(string fullname, string address)
+    public Customer(string fullname, Address address)
     {
+        _id = IdGenerator.GetNextId();
+
         _fullname = fullname;
 
-        _address = address;
-
-        _validator.AssertStringOnLength(fullname, 200, nameof(fullname));
-
-        _validator.AssertStringOnLength(address, 500, nameof(address));
+        Address = address ?? new Address();
     }
 }
 

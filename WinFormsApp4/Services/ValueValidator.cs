@@ -17,4 +17,6 @@ class ValueValidator
             throw new ArgumentException($"{propertyName} должен бать меньше {maxLenght} символов.");
         }
     }
+
+    
 }
