@@ -67,6 +67,7 @@
             itemsTab1.Name = "itemsTab1";
             itemsTab1.Size = new Size(786, 411);
             itemsTab1.TabIndex = 0;
+            itemsTab1.Load += itemsTab1_Load;
             // 
             // tabPage2
             // 
@@ -86,6 +87,7 @@
             userControl11.Name = "userControl11";
             userControl11.Size = new Size(786, 411);
             userControl11.TabIndex = 0;
+            userControl11.Load += userControl11_Load;
             // 
             // MainForm
             // 

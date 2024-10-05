@@ -28,8 +28,11 @@ class Item
 	/// Создание объекта класса ValueValidator.
 	/// </summary>
 	private ValueValidator _validator = new ValueValidator();
-
-    public string name
+  
+    /// <summary>
+    /// Свойство наименования товара.
+    /// </summary>
+    public string Name
     {
         get
         {
@@ -37,11 +40,16 @@ class Item
         }
         set
         {
-            _validator.AssertStringOnLength(name, 200, nameof(name));
+            _validator.AssertStringOnLength(Name, 200, nameof(Name));
             _name = value;
         }
     }
 
+    public Category Category { get; set; }
+
+    /// <summary>
+    /// Свойство идентификатора.
+    /// </summary>
     public int Id
     {
         get
@@ -49,7 +57,11 @@ class Item
             return _id;
         }
     }
-    public string info
+
+    /// <summary>
+    /// Свойство описания.
+    /// </summary>
+    public string Info
     {
         get
         {
@@ -57,13 +69,16 @@ class Item
         }
         set
         {
-            _validator.AssertStringOnLength(info, 1000, nameof(info));
+            _validator.AssertStringOnLength(Info, 1000, nameof(Info));
             _info = value;
        
         }
     }
 
-    public double cost
+    /// <summary>
+    /// Свойство стоимости.
+    /// </summary>
+    public double Cost
     {
         get
         {
@@ -94,15 +109,17 @@ class Item
 
     /// <summary>
     /// Присваивает полям _name, _info, _cost значения.
-    /// Проверяет длину строковых полей.
     /// </summary>
+    /// <param name="category">Категория товара.</param>
     /// <param name="name">Название товара.</param>
     /// <param name="info">Описание товара.</param>
     /// <param name="cost">Стоимость товара.</param>
-    public Item(string name, string info, double cost)
+    public Item(string name, string info, double cost, Category category)
     {
-        _id = IdGenerator.GetNextId(); 
+        _id = IdGenerator.GetNextId();
         
+        Category = category;
+
         _name = name;
 
         _info = info;

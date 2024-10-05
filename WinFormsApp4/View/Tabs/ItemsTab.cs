@@ -11,12 +11,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
     /// <summary>
     /// Позволяет добавлять, удалять и отображать товары.
     /// </summary>
+    /// 
     public partial class ItemsTab : UserControl
     {
         /// <summary>
@@ -35,20 +37,23 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
+            listCategory.DataSource = Enum.GetValues(typeof(Category));
             inputID.ReadOnly = true;
         }
 
+
+
         
 
-
-        private void listItems(object sender, EventArgs e)
+            private void listItems(object sender, EventArgs e)
         {
             if (itemsListBox.SelectedItem is Item selectedItem)
             {
                 inputID.Text = selectedItem.Id.ToString();
-                inputName.Text = selectedItem.name;
-                inputDescription.Text = selectedItem.info;
-                inputCost.Text = selectedItem.cost.ToString();
+                inputName.Text = selectedItem.Name;
+                inputDescription.Text = selectedItem.Info;
+                inputCost.Text = selectedItem.Cost.ToString();
+                listCategory.SelectedItem = selectedItem.Category;
             }
         }
 
@@ -72,10 +77,11 @@ namespace ObjectOrientedPractics.View.Tabs
             double cost;
             string name;
             string info;
+
             
-            name = inputName.Text; 
+            name = inputName.Text;
             info = inputDescription.Text;
-            
+
             try
             {
 
@@ -83,7 +89,9 @@ namespace ObjectOrientedPractics.View.Tabs
                 {
                     throw new ArgumentException("Стоимость должна быть больше 0 и меньше 100000.");
                 }
-                Item newItem = new Item(name, info, cost);
+                Category category = (Category) listCategory.SelectedItem;
+                Item newItem = new Item(name, info, cost, category);
+                
                 items.Add(newItem);
                 UpdateListBox();
                 ClearFields();
@@ -92,8 +100,8 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 MessageBox.Show("Введите корректную стоимость.");
             }
-            
-                
+
+
         }
 
         /// <summary>
@@ -116,6 +124,7 @@ namespace ObjectOrientedPractics.View.Tabs
             inputName.Clear();
             inputCost.Clear();
             inputDescription.Clear();
+            listCategory.SelectedIndex = -1;
 
         }
 
@@ -132,12 +141,12 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void textBoxInputId(object sender, EventArgs e)
         {
-          
+
         }
 
         private void textBoxInputCost(object sender, EventArgs e)
         {
-            
+
         }
 
         private void textBoxInputName(object sender, EventArgs e)
@@ -179,8 +188,17 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             catch (ArgumentException ex)
             {
-                inputName.ForeColor = System.Drawing.Color.Red;
+                inputDescription.ForeColor = System.Drawing.Color.Red;
                 MessageBox.Show("Info должно быть меньше 200 символов.");
+            }
+        }
+
+
+        private void ListCategory_SelectedIndexChanget(object sender, EventArgs e)
+        {
+            if (itemsListBox.SelectedItem is Item selectedItem && listCategory.SelectedItem is Category selectedCategory)
+            {
+                selectedItem.Category = selectedCategory;
             }
         }
     }

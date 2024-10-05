@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ItemsTab));
             splitContainer1 = new SplitContainer();
             groupBoxItems = new GroupBox();
@@ -36,6 +37,8 @@
             buttonRemove = new Button();
             itemsListBox = new ListBox();
             groupBoxSelectedItem = new GroupBox();
+            labelCategory = new Label();
+            listCategory = new ComboBox();
             labelDescription = new Label();
             labelName = new Label();
             labelCost = new Label();
@@ -44,6 +47,7 @@
             inputName = new TextBox();
             inputCost = new TextBox();
             inputID = new TextBox();
+            errorProvider1 = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -51,6 +55,7 @@
             groupBoxItems.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             groupBoxSelectedItem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // splitContainer1
@@ -104,6 +109,8 @@
             // 
             // groupBoxSelectedItem
             // 
+            groupBoxSelectedItem.Controls.Add(labelCategory);
+            groupBoxSelectedItem.Controls.Add(listCategory);
             groupBoxSelectedItem.Controls.Add(labelDescription);
             groupBoxSelectedItem.Controls.Add(labelName);
             groupBoxSelectedItem.Controls.Add(labelCost);
@@ -115,7 +122,18 @@
             resources.ApplyResources(groupBoxSelectedItem, "groupBoxSelectedItem");
             groupBoxSelectedItem.Name = "groupBoxSelectedItem";
             groupBoxSelectedItem.TabStop = false;
-            
+            // 
+            // labelCategory
+            // 
+            resources.ApplyResources(labelCategory, "labelCategory");
+            labelCategory.Name = "labelCategory";
+            // 
+            // listCategory
+            // 
+            listCategory.FormattingEnabled = true;
+            resources.ApplyResources(listCategory, "listCategory");
+            listCategory.Name = "listCategory";
+            listCategory.SelectedIndexChanged += ListCategory_SelectedIndexChanget;
             // 
             // labelDescription
             // 
@@ -161,6 +179,10 @@
             inputID.Name = "inputID";
             inputID.TextChanged += textBoxInputId;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // ItemsTab
             // 
             resources.ApplyResources(this, "$this");
@@ -175,6 +197,7 @@
             tableLayoutPanel1.ResumeLayout(false);
             groupBoxSelectedItem.ResumeLayout(false);
             groupBoxSelectedItem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -195,5 +218,8 @@
         private TextBox inputName;
         private TextBox inputCost;
         private TextBox inputID;
+        private Label labelCategory;
+        private ComboBox listCategory;
+        private ErrorProvider errorProvider1;
     }
 }
