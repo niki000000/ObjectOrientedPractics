@@ -11,129 +11,119 @@ using System.Windows.Forms;
 namespace ObjectOrientedPractics.View.Tabs
 {
     public partial class CustomersTab : UserControl
-    {
-
-        private List<Customer> items = new();
-
-        private AddressControl addressControl;
+    {   
+        private List<Customer> _customers = new List<Customer>();
+        private Customer _actualCustomer;
+        private List<string> CustomersListBoxItems = new List<string>();
 
         private ValueValidator validator = new ValueValidator();
+
 
         public CustomersTab()
         {
             InitializeComponent();
-            addressControl = new AddressControl();
-            textID.ReadOnly = true;
         }
 
-        private void groupBoxCustomers_Enter(object sender, EventArgs e)
+        public List<Customer> Customer
         {
+            get 
+            {
+                return _customers; 
+            }
+            set
+            {
+                _customers = value;
 
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBoxSelectedCustomer_Enter(object sender, EventArgs e)
-        {
-
+            }
         }
 
         private void listBoxCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBoxCustomer.SelectedItem is Customer selectedItem)
+            if (listBoxCustomer.SelectedIndex == -1 || listBoxCustomer.Items.Count == 0)
             {
-                textID.Text = selectedItem.Id.ToString();
-                textFullName.Text = selectedItem.FullName;
-                
+                addressControl1.IsUpdatingFieldFlag = true;
+                buttonAdd.Enabled = true;
+                ClearFields();
+            }
+            else
+            {
+                addressControl1.IsUpdatingFieldFlag = false;
+                buttonAdd.Enabled = false;
+                int selectedIndex = listBoxCustomer.SelectedIndex;
+                if (selectedIndex == -1) return;
+                _actualCustomer = Customer[selectedIndex];
+                textID.Text = _actualCustomer.Id.ToString();
+                textFullName.Text = _actualCustomer.FullName;
+
+                addressControl1.UpdateData(_actualCustomer.Address);
+
             }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            string fullName = textFullName.Text;
-            Address address = new Address();
-            
-
-            
-            if (string.IsNullOrWhiteSpace(fullName))
+            if (String.IsNullOrEmpty(textFullName.Text) || addressControl1.AddressIsNull())
             {
-                MessageBox.Show("Введите полное имя.");
+                MessageBox.Show("Заполните все поля");
+                return;
+            }
+            if (IsNumeric(textFullName.Text))
+            {
+                MessageBox.Show("FullName имеет только строковой тип");
                 return;
             }
 
-            try
-            {
-                Address newAddress = new Address();
-                Customer newCustomer = new Customer(fullName, address);
-                items.Add(newCustomer);
-                UpdateListBox();
-                ClearFields();
-                addressControl.ClearField();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при добавлении клиента: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Customer NewCustomer = new Customer();
+            NewCustomer.FullName = textFullName.Text;
+            NewCustomer.Address = addressControl1.ProvideValues();
+
+            Customer.Add(NewCustomer);
+            CustomersListBoxItems.Add($"{NewCustomer.Id.ToString()}. {NewCustomer.FullName}");
+            listBoxCustomer.Items.Add(CustomersListBoxItems[CustomersListBoxItems.Count - 1]);
+            ClearFields();
         }
 
-        public void  UpdateListBox()
-        {
-            listBoxCustomer.DataSource = null;
-            listBoxCustomer.DataSource = items;
-            listBoxCustomer.DisplayMember = "Display";
-        }
 
         public void ClearFields()
         {
             textID.Clear();
             textFullName.Clear();
-            
+            addressControl1.ClearField();
+            textFullName.BackColor = Color.White;   
         }
-        private void duttonRemove_Click(object sender, EventArgs e)
+        private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (listBoxCustomer.SelectedItem is Customer selectedItem)
+            int selectedIndex = listBoxCustomer.SelectedIndex;
+            if (selectedIndex != -1)
             {
-                items.Remove(selectedItem);
-                UpdateListBox();
+                _customers.RemoveAt(selectedIndex);
+                listBoxCustomer.Items.RemoveAt(selectedIndex);
+                _actualCustomer = null;
                 ClearFields();
             }
-            else
+        }
+
+        private bool IsNumeric(string input)
+        {
+            foreach (char c in input)
             {
-                MessageBox.Show("Выберите товар для удаления.");
+                if (char.IsDigit(c))
+                {
+                    return true; // Если хотя бы один символ — цифра, возвращаем true
+                }
             }
+            return false; // Если нет цифр, возвращаем false
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+
+        private void listBoxCustomer_MouseClick(object sender, MouseEventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textFullName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textAddress_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void addressControl1_Load(object sender, EventArgs e)
-        {
-            
+            if (listBoxCustomer.IndexFromPoint(e.Location) == -1)
+            {
+                addressControl1.IsUpdatingFieldFlag = false;
+                listBoxCustomer.ClearSelected();
+                ClearFields();
+            }
         }
     }
 }

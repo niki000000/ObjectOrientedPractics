@@ -1,7 +1,7 @@
 ﻿/// <summary>
 /// Хранит данные о товаре, его идентификатор, название, описание и стоимость.
 /// </summary>
-class Item
+public class Item
 {
     /// <summary>
     /// Уникальный идентификатор товара.
@@ -107,7 +107,7 @@ class Item
         _id = IdGenerator.GetNextId();
     }
 
-    /// <summary>
+    /// <summary>5
     /// Присваивает полям _name, _info, _cost значения.
     /// </summary>
     /// <param name="category">Категория товара.</param>

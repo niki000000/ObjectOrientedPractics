@@ -139,16 +139,6 @@ namespace ObjectOrientedPractics.View.Tabs
             return value > 0.0 && value < 100000.0;
         }
 
-        private void textBoxInputId(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxInputCost(object sender, EventArgs e)
-        {
-
-        }
-
         private void textBoxInputName(object sender, EventArgs e)
         {
             ValidName();

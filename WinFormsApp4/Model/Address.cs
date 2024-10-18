@@ -4,7 +4,7 @@ using System.Xml.Linq;
 /// <summary>
 /// Хранит адрес покупателя.
 /// </summary>
-class Address
+public class Address
 {
     /// <summary>
     /// Почтовый индекс.
@@ -53,7 +53,6 @@ class Address
         }
         set
         {
-            _validator.AssertStringOnLength(Index.ToString(), 200, nameof(Index));
             _index = value;
         }
     }
@@ -69,7 +68,7 @@ class Address
         }
         set
         {
-            _validator.AssertStringOnLength(Country, 200, nameof(Country));
+            _validator.AssertStringOnLength(value, 50, nameof(Country));
             _country = value;
         }
     }
@@ -85,7 +84,7 @@ class Address
         }
         set
         {
-            _validator.AssertStringOnLength(City, 200, nameof(City));
+            _validator.AssertStringOnLength(value, 50, nameof(City));
             _city = value;
         }
     }
@@ -101,7 +100,7 @@ class Address
         }
         set
         {
-            _validator.AssertStringOnLength(Street, 200, nameof(Street));
+            _validator.AssertStringOnLength(value, 100, nameof(Street));
             _street = value;
         }
     }
@@ -117,7 +116,7 @@ class Address
         }
         set
         {
-            _validator.AssertStringOnLength(Building, 200, nameof(Building));
+            _validator.AssertStringOnLength(value, 10, nameof(Building));
             _building = value;
         }
     }
@@ -133,7 +132,7 @@ class Address
         }
         set
         {
-            _validator.AssertStringOnLength(Apartment, 200, nameof(Apartment));
+            _validator.AssertStringOnLength(value, 10, nameof(Apartment));
             _apartment = value;
         }
     }
@@ -143,7 +142,12 @@ class Address
     /// </summary>
     public Address()
         {
-
+        Index = 100000;
+        Country = "";
+        City = "";
+        Street = "";
+        Building = "";
+        Apartment = "";
         }
     /// <summary>
     /// Присваивает полям _index, _country, _city, _street, _building, _apartment значения.
@@ -156,11 +160,11 @@ class Address
     /// <param name="apartment">Номер квартиры/помещения.</param>
     public Address(int index, string country, string city, string street, string building, string apartment)
     {
-        _index = index;
-        _country = country;
-        _city = city;
-        _street = street;
-        _building = building;
-        _apartment = apartment;
+        Index = index;
+        Country = country;
+        City = city;
+        Street = street;
+        Building = building;
+        Apartment = apartment;
     }
 }

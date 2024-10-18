@@ -1,4 +1,4 @@
-﻿enum Category
+﻿public enum Category
 {
     Electronics,
     Food,

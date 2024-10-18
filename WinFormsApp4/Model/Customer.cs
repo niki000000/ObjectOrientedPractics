@@ -1,24 +1,23 @@
 ﻿
 
+using System.Diagnostics.Tracing;
+
 /// <summary>
 /// Хранит данные покупателя, его идентификатор, полное имя и адрес.
 /// </summary>
-class Customer
+public class Customer
 {
     /// <summary>
     /// Уникальный идентификатор покупателя.
     /// </summary>
-    private readonly int _id;
+    readonly int _id;
 
     /// <summary>
     /// Полное имя покупателя.
     /// </summary>
-    private string _fullname;
+    string _fullname;
 
-    /// <summary>
-    /// Адрес покупателя.
-    /// </summary>
-    private Address _address = new Address();
+    Address _address;
 
     /// <summary>
     ///Создание объекта класса ValueValidator.
@@ -44,13 +43,6 @@ class Customer
             _fullname = value;
         }
     }
-    public string Display
-    {
-        get
-        {
-            return $"ID: {_id}, Name: {_fullname}";
-        }
-    }
 
 
     public Address Address
@@ -62,24 +54,33 @@ class Customer
         set
         {
 
-            _address = value ?? new Address();
+            _address = value;
 
         }
     }
 
     /// <summary>
-    /// Присваивает полям _fullname и _address значения.
+    /// Создает начальный экземпляр класса.
+    /// </summary>
+    public Customer()
+    {
+        FullName = "None";
+        Address = new Address();
+        _id = IdGenerator.GetNextId();
+    }
+
+    /// <summary>
+    /// Присваивает полям значения.
     /// Проверяет длину строковых полей.
     /// </summary>
     /// <param name="fullname">Полное имя покупателя.</param>
-    /// <param name="address">Адрес покупателя.</param>
-    public Customer(string fullname, Address address)
+    public Customer(string fullname)
     {
         _id = IdGenerator.GetNextId();
 
-        _fullname = fullname;
+        FullName = fullname;
 
-        Address = address ?? new Address();
+        Address = new Address();
     }
 }
 

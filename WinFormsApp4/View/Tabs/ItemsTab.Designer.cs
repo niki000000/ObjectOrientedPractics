@@ -171,13 +171,11 @@
             // 
             resources.ApplyResources(inputCost, "inputCost");
             inputCost.Name = "inputCost";
-            inputCost.TextChanged += textBoxInputCost;
             // 
             // inputID
             // 
             resources.ApplyResources(inputID, "inputID");
             inputID.Name = "inputID";
-            inputID.TextChanged += textBoxInputId;
             // 
             // errorProvider1
             // 

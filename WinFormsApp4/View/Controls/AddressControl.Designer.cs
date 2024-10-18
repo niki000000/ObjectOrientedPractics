@@ -66,7 +66,6 @@
             groupBoxAddress.TabIndex = 0;
             groupBoxAddress.TabStop = false;
             groupBoxAddress.Text = "Delivery Address";
-            groupBoxAddress.Enter += groupBoxAddress_Enter;
             // 
             // InputApartment
             // 
@@ -182,6 +181,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(groupBoxAddress);
             Name = "AddressControl";
+            Load += AddressControl_Load;
             Size = new Size(661, 219);
             groupBoxAddress.ResumeLayout(false);
             groupBoxAddress.PerformLayout();

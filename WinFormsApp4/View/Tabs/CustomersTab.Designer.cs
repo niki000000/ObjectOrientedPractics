@@ -81,7 +81,6 @@
             groupBoxCustomers.TabIndex = 0;
             groupBoxCustomers.TabStop = false;
             groupBoxCustomers.Text = "Customers";
-            groupBoxCustomers.Enter += groupBoxCustomers_Enter;
             // 
             // tableLayoutPanel1
             // 
@@ -98,7 +97,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Size = new Size(272, 54);
             tableLayoutPanel1.TabIndex = 1;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
             // buttonAdd
             // 
@@ -112,7 +110,7 @@
             buttonAdd.UseVisualStyleBackColor = true;
             buttonAdd.Click += buttonAdd_Click;
             // 
-            // duttonRemove
+            // buttonRemove
             // 
             duttonRemove.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             duttonRemove.Font = new Font("Segoe UI", 9F);
@@ -122,7 +120,7 @@
             duttonRemove.TabIndex = 1;
             duttonRemove.Text = "Remove";
             duttonRemove.UseVisualStyleBackColor = true;
-            duttonRemove.Click += duttonRemove_Click;
+            duttonRemove.Click += buttonRemove_Click;
             // 
             // listBoxCustomer
             // 
@@ -130,6 +128,7 @@
             listBoxCustomer.Font = new Font("Segoe UI", 9F);
             listBoxCustomer.FormattingEnabled = true;
             listBoxCustomer.Location = new Point(6, 26);
+            listBoxCustomer.MouseClick += listBoxCustomer_MouseClick;
             listBoxCustomer.Name = "listBoxCustomer";
             listBoxCustomer.Size = new Size(272, 444);
             listBoxCustomer.TabIndex = 0;
@@ -150,7 +149,6 @@
             addressControl1.Name = "addressControl1";
             addressControl1.Size = new Size(459, 195);
             addressControl1.TabIndex = 0;
-            addressControl1.Load += addressControl1_Load;
             // 
             // groupBoxSelectedCustomer
             // 
@@ -166,7 +164,6 @@
             groupBoxSelectedCustomer.TabIndex = 0;
             groupBoxSelectedCustomer.TabStop = false;
             groupBoxSelectedCustomer.Text = "Selected Customer";
-            groupBoxSelectedCustomer.Enter += groupBoxSelectedCustomer_Enter;
             // 
             // textFullName
             // 
@@ -174,7 +171,6 @@
             textFullName.Name = "textFullName";
             textFullName.Size = new Size(253, 27);
             textFullName.TabIndex = 4;
-            textFullName.TextChanged += textFullName_TextChanged;
             // 
             // textID
             // 
@@ -182,7 +178,6 @@
             textID.Name = "textID";
             textID.Size = new Size(125, 27);
             textID.TabIndex = 3;
-            textID.TextChanged += textID_TextChanged;
             // 
             // label2
             // 
@@ -193,7 +188,6 @@
             label2.Size = new Size(79, 20);
             label2.TabIndex = 1;
             label2.Text = "Full Name:";
-            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -204,7 +198,6 @@
             label1.Size = new Size(27, 20);
             label1.TabIndex = 0;
             label1.Text = "ID:";
-            label1.Click += label1_Click;
             // 
             // CustomersTab
             // 
